@@ -13,26 +13,58 @@ namespace UncleCustomizer
         public override string GitHubLink => "https://github.com/theLeaxx/UncleCustomizer/"; // If your mod is open-source on GitHub, you can link it here to allow for automatic update-checking in-game. It compares the current ModVersion with the tag of the latest release (ex. 1.0.0 compared with 1.0.1)
         public override WhenToInit WhenToInit => WhenToInit.InGame; // When should the mod's OnEnable/Awake/Start/Update functions be called?
 
-        public override bool UseAssets => false; // Does your mod use custom assetbundles?
+        public override bool UseAssets => true; // Does your mod use custom assetbundles or textures?
+
+        private readonly UncleHelper uncleHelper = UncleHelper.Instance;
 
         public override void SettingsDeclaration() // Declare all of your per-user settings here
         {
             base.SettingsDeclaration();
-        }
 
-        public override void CustomObjectsRegistration() // Create, edit and register your custom objects here
-        {
-            base.CustomObjectsRegistration();
+            InstantiateSettings();
+
+            AddToggle("UncleHat", "Toggle Uncle's hat", true);
+            AddToggle("UncleTexture", "Toggle custom color for Uncle's jacket", false);
+            AddToggle("UncleMaterial", "Toggle funky jacket look", false);
         }
 
         public override void Start() // Default Unity Start() function
         {
             base.Start();
-        }
 
-        public override void Update() // Default Unity Update() function
-        {
-            base.Update();
-        }
+            if (!uncleHelper.UncleEnabled) return;
+
+            var uncle = uncleHelper.Uncle.gameObject;
+
+            if (GetToggleValue("UncleHat") == false)
+            {
+                uncle.transform.Find("Dantes_Hair_001").gameObject.SetActive(false);
+            }
+
+            if (GetToggleValue("UncleTexture") == true)
+            {
+                var texture = PNGToTexture("UncleJacket");
+
+                if (GetToggleValue("UncleMaterial") == true)
+                {
+                    uncle.transform.Find("Dantes_Body_001").GetComponent<SkinnedMeshRenderer>().materials[0].mainTexture = texture;
+                    return;
+                }
+
+                var originalMat = uncle.transform.Find("Dantes_Body_001").GetComponent<SkinnedMeshRenderer>().materials[1];
+
+                var normalMat = new Material(Shader.Find("Legacy Shaders/Diffuse"))
+                {
+                    color = originalMat.color,
+                    mainTexture = texture
+                };
+
+                Material[] matArray = new Material[2];
+                matArray[0] = normalMat;
+                matArray[1] = originalMat;
+
+                uncle.transform.Find("Dantes_Body_001").GetComponent<SkinnedMeshRenderer>().materials = matArray;
+            }
+        }  
     }
 }
