@@ -7,7 +7,7 @@ This mod allows you to customize the Uncle from Jalopy to your likings!
 * Change his jacket color & texture
 
 ### How to install
-1. Make sure you have [JaLoader](https://github.com/theLeaxx/JaLoader) installed
+1. Make sure you have [JaLoader](https://github.com/theLeaxx/JaLoader) 1.0.1+ installed
 2. Place it into your mods folder (default is `Documents\Jalopy\Mods`)
 
 ### How to add a custom "texture"
