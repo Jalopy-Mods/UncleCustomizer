@@ -1,5 +1,7 @@
 # UncleCustomizer
 
+[![](https://img.shields.io/github/downloads/Jalopy-Mods/UncleCustomizer/total)](#)
+
 This mod allows you to customize the Uncle from Jalopy to your likings!
 
 ### You can:
