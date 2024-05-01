@@ -1,6 +1,7 @@
 # UncleCustomizer
 
 [![](https://img.shields.io/github/downloads/Jalopy-Mods/UncleCustomizer/total)](#)
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/A0A8OGPIQ)
 
 This mod allows you to customize the Uncle from Jalopy to your likings!
 
